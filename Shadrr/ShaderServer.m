@@ -24,14 +24,14 @@ GCDWebServer* _webServer;
     [_webServer addDefaultHandlerForMethod:@"POST"
                               requestClass:[GCDWebServerURLEncodedFormRequest class]
                               processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request)
-    {
-        NSString* shader = [[(GCDWebServerURLEncodedFormRequest*)request arguments] objectForKey:@"code"];
-        
-        if (shader) {
-            // Shader param exists -- success passing shader data to app
-            
+     {
+         NSString* filename = [[(GCDWebServerURLEncodedFormRequest*)request arguments] objectForKey:@"filename"];
+         NSString* code = [[(GCDWebServerURLEncodedFormRequest*)request arguments] objectForKey:@"code"];
+
+         // Sanity check -- do shader params exist?
+        if (filename && code) {
             // Trigger callback
-            callback(@"test.glsl", shader);
+            callback(filename, code);
             
             return [GCDWebServerResponse responseWithStatusCode:200];
         } else {

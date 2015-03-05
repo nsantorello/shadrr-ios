@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "ShaderServer.h"
+#import <Mixpanel/Mixpanel.h>
+
+#define MIXPANEL_TOKEN @"ee61afbc34e4e93044637bbca06a238d"
 
 @interface AppDelegate ()
 
@@ -18,6 +21,10 @@
 ShaderServer* _server;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Load Mixpanel
+    [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
+    [[Mixpanel sharedInstance] track:@"App Started"];
+    
     // Initialize the Bonjour service and web server for shader communication
     _server = [[ShaderServer alloc] init];
     [_server initializeServer:^ (NSString* filename, NSString* shaderCode) {

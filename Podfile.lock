@@ -2,10 +2,14 @@ PODS:
   - GCDWebServer (3.2.2):
     - GCDWebServer/Core (= 3.2.2)
   - GCDWebServer/Core (3.2.2)
+  - Mixpanel (2.7.2):
+    - Mixpanel/MPCategoryHelpers (= 2.7.2)
+  - Mixpanel/MPCategoryHelpers (2.7.2)
   - PulsingHalo (0.0.4)
 
 DEPENDENCIES:
   - GCDWebServer (~> 3.2)
+  - Mixpanel
   - PulsingHalo (from `https://github.com/shu223/PulsingHalo.git`)
 
 EXTERNAL SOURCES:
@@ -19,6 +23,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   GCDWebServer: 285fde9951ab2cd87c2d9d74735fee977a16fe04
+  Mixpanel: def38b9e600f101686b8d647e05660a72c089c65
   PulsingHalo: 91a96da0e0008202039f0faf7368ed9b8b575222
 
 COCOAPODS: 0.35.0
