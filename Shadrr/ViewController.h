@@ -10,7 +10,7 @@
 
 @interface ViewController : UIViewController
 
-@property (weak) IBOutlet UILabel *textView;
+@property (weak) IBOutlet UITextView *textView;
 
 @end
 
