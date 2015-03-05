@@ -30,12 +30,12 @@ GCDWebServer* _webServer;
 
          // Sanity check -- do shader params exist?
         if (filename && code) {
-            // Trigger callback
             callback(filename, code);
             
+            // Good request
             return [GCDWebServerResponse responseWithStatusCode:200];
         } else {
-            // Shader param not found -- bad request
+            // Bad request
             return [GCDWebServerResponse responseWithStatusCode:400];
         }
     }];
