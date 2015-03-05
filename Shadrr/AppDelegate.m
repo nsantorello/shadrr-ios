@@ -15,8 +15,16 @@
 
 @implementation AppDelegate
 
+ShaderServer* _server;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Initialize the Bonjour service and web server for shader communication
+    _server = [[ShaderServer alloc] init];
+    [_server initializeServer:^ (NSString* filename, NSString* shaderCode) {
+        if (self.shaderPushDelegate && [self.shaderPushDelegate respondsToSelector:@selector(updatedShader:withCode:)]) {
+            [self.shaderPushDelegate updatedShader:filename withCode:shaderCode];
+        }
+    }];
     
     return YES;
 }
