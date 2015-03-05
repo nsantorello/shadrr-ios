@@ -16,7 +16,7 @@
 
 GCDWebServer* _webServer;
 
-- (void)initializeServer {
+- (void)initializeServer:(void (^)(NSString*, NSString*))callback {
     // Initialize server
     _webServer = [[GCDWebServer alloc] init];
     
@@ -25,9 +25,14 @@ GCDWebServer* _webServer;
                               requestClass:[GCDWebServerURLEncodedFormRequest class]
                               processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request)
     {
-        NSString* shader = [[(GCDWebServerURLEncodedFormRequest*)request arguments] objectForKey:@"shader"];
+        NSString* shader = [[(GCDWebServerURLEncodedFormRequest*)request arguments] objectForKey:@"code"];
+        
         if (shader) {
             // Shader param exists -- success passing shader data to app
+            
+            // Trigger callback
+            callback(@"test.glsl", shader);
+            
             return [GCDWebServerResponse responseWithStatusCode:200];
         } else {
             // Shader param not found -- bad request

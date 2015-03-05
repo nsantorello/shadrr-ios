@@ -18,10 +18,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    // Initialize the Bonjour service and web server for shader communication
-    ShaderServer* server = [[ShaderServer alloc] init];
-    [server initializeServer];
-    
     return YES;
 }
 

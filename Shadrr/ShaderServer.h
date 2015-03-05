@@ -10,6 +10,6 @@
 
 @interface ShaderServer : NSObject
 
-- (void)initializeServer;
+- (void)initializeServer:(void (^)(NSString*, NSString*))callback;
 
 @end

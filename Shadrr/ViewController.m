@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ShaderServer.h"
 
 @interface ViewController ()
 
@@ -14,9 +15,18 @@
 
 @implementation ViewController
 
+ShaderServer* _server;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    // Initialize the Bonjour service and web server for shader communication
+    _server = [[ShaderServer alloc] init];
+    [_server initializeServer:^ (NSString* filename, NSString* shaderCode) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.textView setText:shaderCode];
+        }];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
