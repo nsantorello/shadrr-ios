@@ -16,21 +16,47 @@
 
 GCDWebServer* _webServer;
 
-- (void)initializeServer:(void (^)(NSString*, NSString*))callback {
+- (void)initializeServer {
     // Initialize server
     _webServer = [[GCDWebServer alloc] init];
     
-    // Add POST request that handles incoming data
-    [_webServer addDefaultHandlerForMethod:@"POST"
-                              requestClass:[GCDWebServerURLEncodedFormRequest class]
-                              processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request)
+    // Handle initial connection attempt
+    [_webServer addHandlerForMethod:@"POST" path:@"/connect"
+                       requestClass:[GCDWebServerURLEncodedFormRequest class]
+                       processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request)
+     {
+         if (self.delegate) {
+             [self.delegate connected:[(GCDWebServerURLEncodedFormRequest*)request arguments]];
+         }
+         
+         return [GCDWebServerResponse responseWithStatusCode:200];
+     }];
+    
+    // Handle initial connection attempt
+    [_webServer addHandlerForMethod:@"POST" path:@"/disconnect"
+                       requestClass:[GCDWebServerURLEncodedFormRequest class]
+                       processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request)
+     {
+         if (self.delegate) {
+             [self.delegate disconnected];
+         }
+         
+         return [GCDWebServerResponse responseWithStatusCode:200];
+     }];
+    
+    // Handle shader updates
+    [_webServer addHandlerForMethod:@"POST" path:@"/shader"
+                requestClass:[GCDWebServerURLEncodedFormRequest class]
+                processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request)
      {
          NSString* filename = [[(GCDWebServerURLEncodedFormRequest*)request arguments] objectForKey:@"filename"];
          NSString* code = [[(GCDWebServerURLEncodedFormRequest*)request arguments] objectForKey:@"code"];
 
          // Sanity check -- do shader params exist?
         if (filename && code) {
-            callback(filename, code);
+            if (self.delegate) {
+                [self.delegate updatedShader:filename withCode:code];
+            }
             
             // Good request
             return [GCDWebServerResponse responseWithStatusCode:200];

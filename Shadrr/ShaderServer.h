@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ShaderServerDelegate.h"
 
 @interface ShaderServer : NSObject
 
-- (void)initializeServer:(void (^)(NSString*, NSString*))callback;
+@property (strong, nonatomic) id<ShaderServerDelegate> delegate;
+
+- (void)initializeServer;
 
 @end

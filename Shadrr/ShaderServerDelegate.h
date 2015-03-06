@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol ShaderPushCallback <NSObject>
+@protocol ShaderServerDelegate <NSObject>
 
+- (void)connected:(NSDictionary*) metadata;
+- (void)disconnected;
 - (void)updatedShader:(NSString*)filename withCode:(NSString*)code;
 
 @end

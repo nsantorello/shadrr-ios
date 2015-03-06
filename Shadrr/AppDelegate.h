@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShaderPushCallback.h"
+#import "ShaderServer.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) id<ShaderPushCallback> shaderPushDelegate;
+@property (strong, nonatomic) ShaderServer *shaderServer;
 
 @end
 

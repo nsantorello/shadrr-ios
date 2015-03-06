@@ -15,6 +15,7 @@
 		4F163A9E1AA800B500AC9947 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F163A9D1AA800B500AC9947 /* CoreGraphics.framework */; };
 		4F163AA01AA800B900AC9947 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F163A9F1AA800B900AC9947 /* UIKit.framework */; };
 		4F163AA21AA800BE00AC9947 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F163AA11AA800BE00AC9947 /* Foundation.framework */; };
+		4F163AB11AAA1D8B00AC9947 /* ConnectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F163AB01AAA1D8B00AC9947 /* ConnectedViewController.m */; };
 		4FD478E31AA6B9900011C61E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD478E21AA6B9900011C61E /* main.m */; };
 		4FD478E61AA6B9900011C61E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD478E51AA6B9900011C61E /* AppDelegate.m */; };
 		4FD478E91AA6B9900011C61E /* ShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD478E81AA6B9900011C61E /* ShaderViewController.m */; };
@@ -44,10 +45,12 @@
 		4F163A971AA7EA7D00AC9947 /* GLShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLShader.m; sourceTree = "<group>"; };
 		4F163A991AA7F34200AC9947 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		4F163A9A1AA7F34200AC9947 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
-		4F163A9C1AA7F48500AC9947 /* ShaderPushCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderPushCallback.h; sourceTree = "<group>"; };
+		4F163A9C1AA7F48500AC9947 /* ShaderServerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderServerDelegate.h; sourceTree = "<group>"; };
 		4F163A9D1AA800B500AC9947 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4F163A9F1AA800B900AC9947 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F163AA11AA800BE00AC9947 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4F163AAF1AAA1D8B00AC9947 /* ConnectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedViewController.h; sourceTree = "<group>"; };
+		4F163AB01AAA1D8B00AC9947 /* ConnectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedViewController.m; sourceTree = "<group>"; };
 		4FD478DD1AA6B9900011C61E /* Shadrr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadrr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD478E11AA6B9900011C61E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FD478E21AA6B9900011C61E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -130,7 +133,9 @@
 				4FD479071AA6B9FD0011C61E /* ShaderServer.m */,
 				4F163A991AA7F34200AC9947 /* InitialViewController.h */,
 				4F163A9A1AA7F34200AC9947 /* InitialViewController.m */,
-				4F163A9C1AA7F48500AC9947 /* ShaderPushCallback.h */,
+				4F163A9C1AA7F48500AC9947 /* ShaderServerDelegate.h */,
+				4F163AAF1AAA1D8B00AC9947 /* ConnectedViewController.h */,
+				4F163AB01AAA1D8B00AC9947 /* ConnectedViewController.m */,
 			);
 			path = Shadrr;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FD478E91AA6B9900011C61E /* ShaderViewController.m in Sources */,
+				4F163AB11AAA1D8B00AC9947 /* ConnectedViewController.m in Sources */,
 				4FD478E61AA6B9900011C61E /* AppDelegate.m in Sources */,
 				4F163A981AA7EA7D00AC9947 /* GLShader.m in Sources */,
 				4F163A9B1AA7F34200AC9947 /* InitialViewController.m in Sources */,

@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShaderPushCallback.h"
+#import "ShaderServerDelegate.h"
 
-@interface InitialViewController : UIViewController<ShaderPushCallback>
+@interface InitialViewController : UIViewController<ShaderServerDelegate>
 
 @property (weak) IBOutlet UILabel* shadrrLogo;
 
+- (void)connected:(NSDictionary *)metadata;
+- (void)disconnected;
 - (void)updatedShader:(NSString*)filename withCode:(NSString*)code;
 
 @end

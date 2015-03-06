@@ -20,19 +20,12 @@
 
 float bgcolor = 0.f;
 
-- (void)updatedShader:(NSString*)filename withCode:(NSString*)code {
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        // Update shader here.
-        bgcolor = 1.f;
-    }];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     // Ensure we get shader updates
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    appDelegate.shaderPushDelegate = self;
+    appDelegate.shaderServer.delegate = self;
     
     // Create an OpenGL ES context and assign it to the view loaded from storyboard
     GLKView *view = (GLKView *)self.view;
@@ -49,6 +42,21 @@ float bgcolor = 0.f;
 
     // Initialize shader
     //self.shader = [[GLShader alloc] initWithFragmentShader:@"RWTBase" fragmentShader:@"RWTBase"];
+}
+
+- (void)connected:(NSDictionary *)metadata {
+    // Ignore this since we know we're already connected
+}
+
+- (void)disconnected {
+    // Segue back to initial view controller
+}
+
+- (void)updatedShader:(NSString*)filename withCode:(NSString*)code {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        // Update shader here.
+        bgcolor = 1.f;
+    }];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {

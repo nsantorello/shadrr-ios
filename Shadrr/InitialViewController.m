@@ -12,19 +12,12 @@
 
 @implementation InitialViewController
 
-NSString* _code;
-NSString* _filename;
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     // Ensure we get shader updates
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    appDelegate.shaderPushDelegate = self;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    appDelegate.shaderServer.delegate = self;
     
     // Set up pulsing halo - do it here since it's based on shadrrLogo's
     // center and since that's defined by constraints it won't be centered in viewDidLoad
@@ -36,21 +29,17 @@ NSString* _filename;
     [self.view.layer insertSublayer:halo below:self.shadrrLogo.layer];
 }
 
-- (void)updatedShader:(NSString*)filename withCode:(NSString*)code {
-    // Save these values so we can pass them onto the next controller
-    _code = code;
-    _filename = filename;
-    
+- (void)connected:(NSDictionary *)metadata {
     // Segue to next controller
-    [self performSegueWithIdentifier:@"ShowShaderView" sender:self];
+    [self performSegueWithIdentifier:@"ShowConnectedView" sender:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    id destController = [segue destinationViewController];
-    if ([destController conformsToProtocol:@protocol(ShaderPushCallback)]) {
-        id<ShaderPushCallback> callback = (id<ShaderPushCallback>)destController;
-        [callback updatedShader:_filename withCode:_code];
-    }
+- (void)disconnected {
+    // Do nothing since we're already on the correct view
+}
+
+- (void)updatedShader:(NSString*)filename withCode:(NSString*)code {
+    // Ignore this since we can't handle it
 }
 
 @end

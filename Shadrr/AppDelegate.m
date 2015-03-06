@@ -18,20 +18,14 @@
 
 @implementation AppDelegate
 
-ShaderServer* _server;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Load Mixpanel
     [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
     [[Mixpanel sharedInstance] track:@"App Started"];
     
     // Initialize the Bonjour service and web server for shader communication
-    _server = [[ShaderServer alloc] init];
-    [_server initializeServer:^ (NSString* filename, NSString* shaderCode) {
-        if (self.shaderPushDelegate && [self.shaderPushDelegate respondsToSelector:@selector(updatedShader:withCode:)]) {
-            [self.shaderPushDelegate updatedShader:filename withCode:shaderCode];
-        }
-    }];
+    self.shaderServer = [[ShaderServer alloc] init];
+    [self.shaderServer initializeServer];
     
     return YES;
 }

@@ -4,6 +4,39 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
+        <!--Connected View Controller-->
+        <scene sceneID="i70-hc-IHh">
+            <objects>
+                <viewController id="Zya-CT-ebZ" customClass="ConnectedViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rQb-8U-dXD"/>
+                        <viewControllerLayoutGuide type="bottom" id="dfz-aw-zkX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="em3-AX-zE7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Connected!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FyG-ln-8aI">
+                                <rect key="frame" x="242" y="275" width="117" height="49"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="FyG-ln-8aI" secondAttribute="centerX" id="E8z-49-h7h"/>
+                            <constraint firstAttribute="centerY" secondItem="FyG-ln-8aI" secondAttribute="centerY" id="cfe-fW-Ml4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="Okg-IR-oft" kind="show" identifier="ShowShaderView" id="F4w-qB-K0C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lf3-xP-CrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="559" y="333"/>
+        </scene>
         <!--GLKit View Controller-->
         <scene sceneID="SYe-LJ-8NQ">
             <objects>
@@ -22,7 +55,7 @@
                 </glkViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QDd-va-fL2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1085" y="333"/>
+            <point key="canvasLocation" x="1227" y="339"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="9kj-oL-fRs">
@@ -45,7 +78,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jz2-et-Xel">
                                 <rect key="frame" x="133" y="495" width="334" height="85"/>
                                 <string key="text">Waiting for connection...
-Having trouble?  Visit shadrr.com/help.</string>
+Having trouble?  Visit shadrr.com/help</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -61,12 +94,12 @@ Having trouble?  Visit shadrr.com/help.</string>
                     </view>
                     <connections>
                         <outlet property="shadrrLogo" destination="2Mz-9O-bWt" id="jqp-nT-y5F"/>
-                        <segue destination="Okg-IR-oft" kind="show" identifier="ShowShaderView" id="cql-b3-d52"/>
+                        <segue destination="Zya-CT-ebZ" kind="show" identifier="ShowConnectedView" id="L1q-hn-Q2u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rQb-bS-kFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="349" y="333"/>
+            <point key="canvasLocation" x="-143" y="333"/>
         </scene>
     </scenes>
 </document>
