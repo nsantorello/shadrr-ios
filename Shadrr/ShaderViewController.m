@@ -19,10 +19,11 @@
 @implementation ShaderViewController
 
 GLShader* _shader;
+double _startTime;
 
 - (void)setupOpenGL {
     // Set up context
-    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     [EAGLContext setCurrentContext:context];
     
     // Set up view
@@ -62,9 +63,23 @@ GLShader* _shader;
         }
         
         // Set fragment shader and compile program
-        [_shader setFragmentShader:code];
-        [_shader compile];
+        NSString* errors = [_shader setFragmentShader:code];
+        if (errors) {
+            [self showAlert:@"Fragment Shader Error" message:errors];
+            return;
+        }
+        
+        errors = [_shader linkProgram];
+        if (errors) {
+            [self showAlert:@"Program Link Error" message:errors];
+            return;
+        }
     }];
+}
+            
+- (void)showAlert:(NSString*)title message:(NSString*)message {
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
@@ -72,7 +87,7 @@ GLShader* _shader;
     
     // Might be null between pushing controller and receiving first shader update, so check!
     if (_shader) {
-        [_shader renderInRect:rect atTime:self.timeSinceFirstResume];
+        [_shader renderInRect:rect];
     }
 }
 

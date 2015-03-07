@@ -13,33 +13,43 @@ static GLfloat const RWTBaseShaderQuad[8] = {
 @interface GLShader ()
 
 // Program Handle
-@property (assign, nonatomic, readonly) GLuint program;
+@property (assign, nonatomic) GLuint program;
 
 // Shader Handles
-@property (assign, nonatomic, readonly) GLuint vertexShader;
-@property (assign, nonatomic, readonly) GLuint fragmentShader;
+@property (assign, nonatomic) GLuint vertShader;
+@property (assign, nonatomic) GLuint fragShader;
 
 // Attribute Handles
-@property (assign, nonatomic, readonly) GLuint aPosition;
+@property (assign, nonatomic) GLuint aPosition;
 
-// Uniform Handles
-@property (assign, nonatomic, readonly) GLuint uResolution;
-@property (assign, nonatomic, readonly) GLuint uTime;
+// Shader inputs Handles
+@property (assign, nonatomic) GLuint iResolution;
+@property (assign, nonatomic) GLuint iGlobalTime;
+
+@property (assign, nonatomic) GLuint startTime;
 
 @end
 
 @implementation GLShader
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _startTime = CACurrentMediaTime();
+    }
+    return self;
+}
+
 - (NSString*)setVertexShader:(NSString*)vsh {
-    return [self setShader:&_vertexShader code:vsh type:GL_VERTEX_SHADER];
+    return [self setShader:&_vertShader code:vsh type:GL_VERTEX_SHADER];
 }
 
 - (NSString*)setFragmentShader:(NSString*)fsh {
-    return [self setShader:&_fragmentShader code:fsh type:GL_FRAGMENT_SHADER];
+    return [self setShader:&_fragShader code:fsh type:GL_FRAGMENT_SHADER];
 }
 
 - (NSString*)setShader:(GLuint*)shaderPointer code:(NSString*)code type:(GLenum)type {
-    GLuint oldShader = _fragmentShader;
+    GLuint oldShader = *shaderPointer;
     GLuint newShader = [self compileShader:code type:type];
     NSString* errors = [self getShaderCompilationErrors:newShader];
     if (errors) {
@@ -57,9 +67,9 @@ static GLfloat const RWTBaseShaderQuad[8] = {
     return errors;
 }
 
-- (NSString*)compile {
+- (NSString*)linkProgram {
     GLuint oldProgram = _program;
-    GLuint newProgram = [self programWithVertexShader:_vertexShader fragmentShader:_fragmentShader];
+    GLuint newProgram = [self programWithVertexShader:_vertShader fragmentShader:_fragShader];
     NSString* errors = [self getProgramLinkErrors:newProgram];
     if (errors) {
         glDeleteProgram(newProgram);
@@ -67,10 +77,10 @@ static GLfloat const RWTBaseShaderQuad[8] = {
         // Set new shader
         _program = newProgram;
         
-        // Reset attributes and uniforms
+        // Set shader inputs
         _aPosition = glGetAttribLocation(_program, "aPosition");
-        _uResolution = glGetUniformLocation(_program, "uResolution");
-        _uTime = glGetUniformLocation(_program, "uTime");
+        _iResolution = glGetUniformLocation(_program, "iResolution");
+        _iGlobalTime = glGetUniformLocation(_program, "iGlobalTime");
         
         // Configure OpenGL ES
         [self configureOpenGLES];
@@ -86,10 +96,10 @@ static GLfloat const RWTBaseShaderQuad[8] = {
 
 #pragma mark - Public
 #pragma mark - Render
-- (void)renderInRect:(CGRect)rect atTime:(NSTimeInterval)time {
+- (void)renderInRect:(CGRect)rect {
     // Uniforms
-    glUniform2f(self.uResolution, CGRectGetWidth(rect)*2.f, CGRectGetHeight(rect)*2.f);
-    glUniform1f(self.uTime, time);
+    glUniform3f(self.iResolution, CGRectGetWidth(rect)*2.f, CGRectGetHeight(rect)*2.f, 1.f);
+    glUniform1f(self.iGlobalTime, CACurrentMediaTime() - _startTime);
     
     // Draw
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

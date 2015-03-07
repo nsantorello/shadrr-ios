@@ -7,7 +7,7 @@
 
 - (NSString*)setVertexShader:(NSString*)vsh;
 - (NSString*)setFragmentShader:(NSString*)fsh;
-- (NSString*)compile;
-- (void)renderInRect:(CGRect)rect atTime:(NSTimeInterval)time;
+- (NSString*)linkProgram;
+- (void)renderInRect:(CGRect)rect;
 
 @end
