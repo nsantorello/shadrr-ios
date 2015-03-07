@@ -18,7 +18,20 @@
 
 @implementation ShaderViewController
 
-float bgcolor = 0.f;
+GLShader* _shader;
+
+- (void)setupOpenGL {
+    // Set up context
+    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    [EAGLContext setCurrentContext:context];
+    
+    // Set up view
+    GLKView *glkView = (GLKView *)self.view;
+    glkView.context = context;
+    
+    // OpenGL ES settings
+    glClearColor(1.f, 0.f, 0.f, 1.f);
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -26,22 +39,6 @@ float bgcolor = 0.f;
     // Ensure we get shader updates
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     appDelegate.shaderServer.delegate = self;
-    
-    // Create an OpenGL ES context and assign it to the view loaded from storyboard
-    GLKView *view = (GLKView *)self.view;
-    view.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    view.delegate = self;
-    
-    // Configure renderbuffers created by the view
-    view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
-    view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    view.drawableStencilFormat = GLKViewDrawableStencilFormat8;
-    
-    // Enable multisampling
-    view.drawableMultisample = GLKViewDrawableMultisample4X;
-
-    // Initialize shader
-    //self.shader = [[GLShader alloc] initWithFragmentShader:@"RWTBase" fragmentShader:@"RWTBase"];
 }
 
 - (void)connected:(NSDictionary *)metadata {
@@ -49,21 +46,34 @@ float bgcolor = 0.f;
 }
 
 - (void)disconnected {
-    // Segue back to initial view controller
+    // TODO: Segue back to initial view controller
 }
 
 - (void)updatedShader:(NSString*)filename withCode:(NSString*)code {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        // Update shader here.
-        bgcolor = 1.f;
+        // Set up OpenGL and vertex shader if it hasn't been set up yet
+        if (!_shader) {
+            [self setupOpenGL];
+            
+            // Create shader and set vertex shader
+            NSString* vert = @"attribute vec2 aPosition; void main() { gl_Position = vec4(aPosition, 0., 1.); }\n";
+            _shader = [[GLShader alloc] init];
+            [_shader setVertexShader:vert];
+        }
+        
+        // Set fragment shader and compile program
+        [_shader setFragmentShader:code];
+        [_shader compile];
     }];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(bgcolor, 0.f, 1.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    //[self.shader renderInRect:rect atTime:self.timeSinceFirstResume];
+    // Might be null between pushing controller and receiving first shader update, so check!
+    if (_shader) {
+        [_shader renderInRect:rect atTime:self.timeSinceFirstResume];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {

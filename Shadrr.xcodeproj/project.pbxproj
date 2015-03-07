@@ -16,6 +16,8 @@
 		4F163AA01AA800B900AC9947 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F163A9F1AA800B900AC9947 /* UIKit.framework */; };
 		4F163AA21AA800BE00AC9947 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F163AA11AA800BE00AC9947 /* Foundation.framework */; };
 		4F163AB11AAA1D8B00AC9947 /* ConnectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F163AB01AAA1D8B00AC9947 /* ConnectedViewController.m */; };
+		4F163AB41AAB73CD00AC9947 /* vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4F163AB31AAB73CD00AC9947 /* vert.glsl */; };
+		4F163AB61AAB73E800AC9947 /* frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4F163AB51AAB73E800AC9947 /* frag.glsl */; };
 		4FD478E31AA6B9900011C61E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD478E21AA6B9900011C61E /* main.m */; };
 		4FD478E61AA6B9900011C61E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD478E51AA6B9900011C61E /* AppDelegate.m */; };
 		4FD478E91AA6B9900011C61E /* ShaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD478E81AA6B9900011C61E /* ShaderViewController.m */; };
@@ -51,6 +53,8 @@
 		4F163AA11AA800BE00AC9947 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4F163AAF1AAA1D8B00AC9947 /* ConnectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectedViewController.h; sourceTree = "<group>"; };
 		4F163AB01AAA1D8B00AC9947 /* ConnectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectedViewController.m; sourceTree = "<group>"; };
+		4F163AB31AAB73CD00AC9947 /* vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vert.glsl; path = Shaders/vert.glsl; sourceTree = "<group>"; };
+		4F163AB51AAB73E800AC9947 /* frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = frag.glsl; path = Shaders/frag.glsl; sourceTree = "<group>"; };
 		4FD478DD1AA6B9900011C61E /* Shadrr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadrr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD478E11AA6B9900011C61E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FD478E21AA6B9900011C61E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -96,6 +100,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F163AB21AAB73A200AC9947 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				4F163AB31AAB73CD00AC9947 /* vert.glsl */,
+				4F163AB51AAB73E800AC9947 /* frag.glsl */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
 		4FD478D41AA6B9900011C61E = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +132,7 @@
 		4FD478DF1AA6B9900011C61E /* Shadrr */ = {
 			isa = PBXGroup;
 			children = (
+				4F163AB21AAB73A200AC9947 /* Shaders */,
 				4F163A961AA7EA7D00AC9947 /* GLShader.h */,
 				4F163A971AA7EA7D00AC9947 /* GLShader.m */,
 				4FD478E41AA6B9900011C61E /* AppDelegate.h */,
@@ -273,6 +287,8 @@
 			files = (
 				4FD478EC1AA6B9900011C61E /* Main.storyboard in Resources */,
 				4FD478F11AA6B9900011C61E /* LaunchScreen.xib in Resources */,
+				4F163AB41AAB73CD00AC9947 /* vert.glsl in Resources */,
+				4F163AB61AAB73E800AC9947 /* frag.glsl in Resources */,
 				4FD478EE1AA6B9900011C61E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
